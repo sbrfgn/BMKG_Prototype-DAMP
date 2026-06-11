@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype Interaktif BMKG</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="top-header">
+        <span id="current-date">SELASA, 17 MARET 2026</span>
+        <span id="current-time">STANDAR WAKTU INDONESIA 07:33:52 / 00:33:52 UTC</span>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-brand" onclick="window.scrollTo(0,0)">
+            <div class="logo-text-wrapper">
+                <div class="logo-b">B</div>
+                <span class="logo-bmkg">BMKG</span>
+            </div>
+            <h1 class="brand-title">BADAN METEOROLOGI, KLIMATOLOGI, DAN GEOFISIKA</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Cuaca</a></li>
+            <li><a href="#">Iklim</a></li>
+            <li><a href="#">Kualitas Udara</a></li>
+            <li><a href="#">Gempa Bumi</a></li>
+            <li><a href="#">Geofisika</a></li>
+        </ul>
+        <button class="btn-contact">📞 Contact Center 196</button>
+    </nav>
+
+    <main class="main-container">
+        
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">Cuaca</h2>
+                <div style="display: flex; align-items: center;">
+                    <div class="weather-filters">
+                        <button class="active" data-day="saat-ini">Saat ini</button>
+                        <button data-day="hari-ini">Hari ini</button>
+                        <button data-day="besok">Besok</button>
+                        <button data-day="lusa">Lusa</button>
+                    </div>
+                    <a href="#" class="link-blue">Lihat Semuanya &rarr;</a>
+                </div>
+            </div>
+
+            <div class="warning-box" id="warningAlert">
+                <button class="warning-close">&times;</button>
+                <button class="warning-nav warn-left">&lt;</button>
+                <div class="warning-icon">⚠️</div>
+                <div id="warning-content">
+                    <h4 class="warning-title">Peringatan Dini Cuaca Nusa Tenggara Timur</h4>
+                    <p class="warning-desc">17 Mar 2026 pukul 05.10-08.00 WITA: Berpotensi terjadi hujan sedang hingga lebat disertai petir... <a href="#" class="link-blue" style="margin-left: 4px;">Selengkapnya &rarr;</a></p>
+                </div>
+                <button class="warning-nav warn-right">&gt;</button>
+            </div>
+
+            <div class="weather-slider-wrapper">
+                <button class="slider-btn slider-left" id="btnScrollLeft">&lt;</button>
+                <div class="weather-cards-container" id="weatherScroll">
+                </div>
+                <button class="slider-btn slider-right" id="btnScrollRight">&gt;</button>
+            </div>
+        </section>
+
+        <br><br>
+
+        <section class="gempa-section">
+            <div class="section-header" style="margin-bottom: 24px;">
+                <h2 class="section-title" style="font-size: 28px;">Gempabumi Terkini</h2>
+                <a href="#" class="link-blue">Lebih Lanjut &rarr;</a>
+            </div>
+
+            <div class="gempa-grid">
+                <div class="gempa-utama" onclick="showModal('Detail Gempa Utama', 'Lokasi: Laut Banda<br>Kedalaman: 15km<br>Koordinat: 5.30 LS - 130.20 BT')">
+                    <div class="gempa-utama-top">
+                        <div class="mag-besar">5.8</div>
+                        <div>
+                            <div style="color: #7f1d1d; font-weight: bold; margin-bottom: 4px;">Magnitudo</div>
+                            <div style="font-weight: 600;">17 Mar 2026, 08:21 WIB</div>
+                        </div>
+                    </div>
+                    <div class="gempa-utama-details">
+                        <div><strong>Lokasi:</strong> Laut Banda</div>
+                        <div><strong>Kedalaman:</strong> 15 km</div>
+                        <div class="potensi-badge">Potensi: Tidak Berpotensi Tsunami</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="gempa-list-title">Gempabumi Dirasakan Lainnya</h4>
+                    <div class="gempa-item" onclick="showModal('Info Gempa', 'Gempa Sumur-Banten<br>Dirasakan: III MMI di Pandeglang')">
+                        <div class="mag-kecil">4.5</div>
+                        <div>
+                            <div style="font-weight: 600;">Sumur-Banten</div>
+                            <div style="color: #6b7280;">17 Mar 2026, 09:12 WIB</div>
+                        </div>
+                    </div>
+                    <div class="gempa-item" onclick="showModal('Info Gempa', 'Gempa Maluku Utara<br>Dirasakan: II MMI di Halmahera')">
+                        <div class="mag-kecil">5.1</div>
+                        <div>
+                            <div style="font-weight: 600;">Maluku Utara</div>
+                            <div style="color: #6b7280;">16 Mar 2026, 21:05 WIB</div>
+                        </div>
+                    </div>
+                    <div class="gempa-item" onclick="showModal('Info Gempa', 'Gempa Ternate<br>Dirasakan: II-III MMI di Ternate')">
+                        <div class="mag-kecil">4.8</div>
+                        <div>
+                            <div style="font-weight: 600;">Ternate</div>
+                            <div style="color: #6b7280;">16 Mar 2026, 18:33 WIB</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <button class="fab fab-left" title="Aksesibilitas" onclick="showModal('Aksesibilitas', 'Menu pengaturan ukuran font, kontras warna, dan pembaca layar (Screen Reader).')">&amp;</button>
+    <button class="fab fab-right" title="Live Chat" onclick="showModal('Live Chat', 'Selamat datang di layanan bantuan BMKG. Ada yang bisa kami bantu?')">💬</button>
+
+    <div class="modal-overlay" id="prototypeModal">
+        <div class="modal-content">
+            <h3 id="modalTitle" style="margin-top:0; color: #003366;">Judul Modal</h3>
+            <p id="modalBody" style="color: #4b5563; line-height: 1.5;"></p>
+            <button class="modal-close" onclick="$('#prototypeModal').fadeOut()">Tutup</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
